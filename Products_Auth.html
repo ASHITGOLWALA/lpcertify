@@ -151,23 +151,51 @@
     
     
     
-          window.lpTag = window.lpTag || {};
-    
+          [01:42] Mohammed (Guest)
+
+window.lpTag = window.lpTag || {};
+
+ 
+
           lpTag.sdes = lpTag.sdes || [];
-    
+
+ 
+
           lpTag.sdes.push({
-    
+
+ 
+
             type: "cart", //MANDATORY
-    
+
+ 
+
             total: totalPrice,
-    
+
+ 
+
             currency: "USD", //CURRENCY CODE
-    
+
+ 
+
             numItems: cartCount, //NUMBER OF ITEMS IN CART
-    
+
+ 
+
+            "products": [{
+
+                "product": {
+
+                    "name": "Page Title: " + document.title, // Correctly access the page title
+
+                    "category": ""
+
+                },
+
+            }]
+
+ 
+
           });
-    
-        }
     
     
     
