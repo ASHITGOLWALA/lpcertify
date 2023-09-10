@@ -324,30 +324,24 @@
             updateCartCount();
 
             updateTotalPrice();
-window.lpTag = window.lpTag || {};
-
-          lpTag.sdes = lpTag.sdes || [];
-
-          lpTag.sdes.push({
-
-            type: "cart", //MANDATORY
-
-            total: totalPrice,
-
-            currency: "USD", //CURRENCY CODE
-
-            numItems: cartCount, //NUMBER OF ITEMS IN CART
 
  
 
-            "products": [{
-                "product": {
-                    "name": "Page Title: " + document.title, // Correctly access the page title
-                    "category": ""
-                },
-            }]
+            window.lpTag = window.lpTag || {};
 
-          });     
+            lpTag.sdes = lpTag.sdes || [];
+
+            lpTag.sdes.push({
+
+                type: "cart",
+
+                total: totalPrice,
+
+                currency: "USD",
+
+                numItems: cartCount,
+
+            });
 
         }
 
