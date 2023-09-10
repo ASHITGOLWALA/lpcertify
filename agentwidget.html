@@ -102,109 +102,91 @@
 
 <script>
 const searchInput = document.getElementById("searchInput");
-      const searchButton = document.getElementById("searchButton");
-      const dataContainer = document.getElementById("data-container");
+const searchButton = document.getElementById("searchButton");
+const dataContainer = document.getElementById("data-container");
 
- 
+// Function to fetch data based on search term
+function fetchData(searchTerm) {
+    const apiKey = "93b1eb42";  // New API Key
+    fetch(
+        `https://www.omdbapi.com/?i=tt3896198&apikey=${apiKey}&t=${searchTerm}`
+    )
+    .then((response) => response.json())
+    .then((responseData) => {
+        dataContainer.innerHTML = ""; // Clear previous results
+        console.log(responseData);
 
-      // Function to fetch data based on search term
-      function fetchData(searchTerm) {
-        const apiKey = "93b1eb42";  // New API Key
-        fetch(
-          `https://www.omdbapi.com/?i=tt3896198&apikey=${apiKey}&t=${searchTerm}`
-        )
-          .then((response) => response.json())
-          .then((responseData) => {
-            dataContainer.innerHTML = ""; // Clear previous results
-            console.log(responseData);
+        if (responseData.Response === "False") {
+            dataContainer.innerHTML = `<p>${responseData.Error}</p>`;
+            return;
+        }
 
- 
+        const post = responseData;
+        const postElement = document.createElement("div");
+        postElement.className = "card"; // Apply the 'card' class
+        postElement.innerHTML = `
+            <h2>Title: ${post.Title}</h2>
+            <p>Year: ${post.Year}</p>
+            <p>Ratings: ${post.Ratings[0].Value}</p>
+            <p>Director: ${post.Director}</p>
+        `;
+        dataContainer.appendChild(postElement);
 
-            if (responseData.length === 0) {
-              dataContainer.innerHTML = "<p>No results found.</p>";
-              return;
-            }
-
- 
-
-            const post = responseData;
-            const postElement = document.createElement("div");
-            postElement.className = "card"; // Apply the 'card' class
-            postElement.innerHTML = `
-<h2>Title: ${post.Title}</h2>
-<p>Year: ${post.Year}</p>
-<p>Ratings: ${post.Ratings[0].Value}</p>
-<p>Type: ${post.Type}</p>
-                        `;
-            dataContainer.appendChild(postElement);
-
- 
-
-            {
-              var notificationHandler = function (data) {
+        {
+            var notificationHandler = function (data) {
                 // Do something with the notifications
-              };
+            };
 
- 
-
-              var focusHandler = function () {
+            var focusHandler = function () {
                 // Do something when the visitor is focused
                 // Assume the visitor is focused to begin with
-              };
+            };
 
- 
-
-              var blurHandler = function () {
+            var blurHandler = function () {
                 // Do something when the visitor is blurred
                 // Assume the visitor is focused to begin with
-              };
+            };
+        }
+        lpTag.agentSDK.init({
+            notificationCallback: notificationHandler,
+            visitorFocusedCallback: focusHandler,
+            visitorBlurredCallback: blurHandler,
+        });
+        const notifyWhenDone = function (err) {
+            if (err) {
+                console.log("Error occurred in notifyWhenDone: " + err);
             }
-            lpTag.agentSDK.init({
-              notificationCallback: notificationHandler,
-              visitorFocusedCallback: focusHandler,
-              visitorBlurredCallback: blurHandler,
-            });
-            const notifyWhenDone = function (err) {
-              if (err) {
-                console.log("Error occured in notifyWhenDone: " + err);
-              }
-            };
-            const commandData = {
-              text: "Title: " + post.Title + ", Year: " + post.Year,
-            };
-            lpTag.agentSDK.command(
-              lpTag.agentSDK.cmdNames.write,
-              commandData,
-              notifyWhenDone
-            );
-          })
-          .catch((error) => {
-            console.error("Error fetching data:", error);
-          });
-        searchInput.value = ""; // Clear the input after search
-      }
+        };
+        const commandData = {
+            text: "Title: " + post.Title + ", Year: " + post.Year + ", Director: " + post.Director,
+        };
+        lpTag.agentSDK.command(
+            lpTag.agentSDK.cmdNames.write,
+            commandData,
+            notifyWhenDone
+        );
+    })
+    .catch((error) => {
+        console.error("Error fetching data:", error);
+    });
+    searchInput.value = ""; // Clear the input after search
+}
 
- 
+function performSearch() {
+    const searchTerm = searchInput.value.trim();
+    if (searchTerm !== "") {
+        fetchData(searchTerm);
+    }
+}
 
-      function performSearch() {
-        const searchTerm = searchInput.value.trim();
-        if (searchTerm !== "") {
-          fetchData(searchTerm);
-        }
-      }
+searchButton.addEventListener("click", performSearch);
 
- 
-
-      searchButton.addEventListener("click", performSearch);
-
- 
-
-      searchInput.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-          performSearch();
-          event.preventDefault(); // Prevent form submission
-        }
-      });
+searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        performSearch();
+        event.preventDefault(); // Prevent form submission
+    }
+});
 </script>
 </body>
 </html>
