@@ -3,122 +3,105 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>API Data Fetching and Search Example</title>
+<title>Movie Search App</title>
 <style>
-      body {
-        font-family: Arial, sans-serif;
+    body {
+        font-family: 'Verdana', sans-serif;
         margin: 0;
         padding: 20px;
-      }
+        background-color: #f4f4f4;
+    }
 
- 
-
-      h1 {
+    h1 {
         text-align: center;
         margin-bottom: 20px;
-      }
+        color: #333;
+    }
 
- 
-
-      label {
+    label {
         font-weight: bold;
-      }
+        color: #333;
+    }
 
- 
-
-      input[type="text"] {
-        width: 80%;
+    input[type="text"] {
+        width: 70%;
         padding: 8px;
         margin-right: 10px;
         border: 1px solid #ccc;
         border-radius: 4px;
-      }
+    }
 
- 
-
-      button {
+    button {
         padding: 8px 15px;
-        background-color: #007bff;
+        background-color: #4caf50;
         color: #fff;
         border: none;
         border-radius: 4px;
         cursor: pointer;
-      }
+    }
 
- 
+    button:hover {
+        background-color: #45a049;
+    }
 
-      button:hover {
-        background-color: #0056b3;
-      }
-
- 
-
-      #data-container {
+    #data-container {
         margin-top: 20px;
         border-top: 1px solid #ccc;
         padding-top: 20px;
-      }
+    }
 
- 
-
-      h2 {
+    h2 {
         color: #333;
-      }
+    }
 
- 
-
-      p {
+    p {
         color: #666;
         line-height: 1.5;
-      }
+    }
 
- 
-
-      hr {
+    hr {
         margin: 10px 0;
         border: none;
         border-top: 1px solid #ccc;
-      }
-      .card {
+    }
+
+    .card {
         border: 1px solid #ccc;
         border-radius: 4px;
         padding: 10px;
         margin-bottom: 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
+        background-color: #fff;
+    }
 
- 
-
-      .card h2 {
+    .card h2 {
         margin-top: 0;
-      }
-      @media screen and (max-width: 768px) {
+        color: #333;
+    }
+
+    @media screen and (max-width: 768px) {
         input[type="text"],
         button {
-          width: 100%;
-          margin-right: 0;
-          margin-top: 10px;
+            width: 100%;
+            margin-right: 0;
+            margin-top: 10px;
         }
-      }
+    }
 </style>
 </head>
 <body>
-<h1>Movie Information</h1>
+<h1>Movie Search</h1>
 <div>
-<label for="searchInput">Search:</label>
+<label for="searchInput">Enter Movie Title:</label>
 <input type="text" id="searchInput" />
 <button id="searchButton">Search</button>
 </div>
 <div id="data-container"></div>
 
- 
+<script src="https://lpcdn.lpsnmedia.net/webagent/client-SDK.min.js"></script>
 
-    <script src="https://lpcdn.lpsnmedia.net/webagent/client-SDK.min.js"></script>
-
- 
-
-    <script>
-      const searchInput = document.getElementById("searchInput");
+<script>
+const searchInput = document.getElementById("searchInput");
       const searchButton = document.getElementById("searchButton");
       const dataContainer = document.getElementById("data-container");
 
@@ -126,8 +109,9 @@
 
       // Function to fetch data based on search term
       function fetchData(searchTerm) {
+        const apiKey = "93b1eb42";  // New API Key
         fetch(
-          `https://www.omdbapi.com/?i=tt3896198&apikey=ee1dfade&t=${searchTerm}`
+          `https://www.omdbapi.com/?i=tt3896198&apikey=${apiKey}&t=${searchTerm}`
         )
           .then((response) => response.json())
           .then((responseData) => {
