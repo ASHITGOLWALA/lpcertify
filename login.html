@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - LP Brand Outlet</title>
+    <title>Login - LP Brand </title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,6 +31,7 @@
 
         .form-group {
             margin: 20px 0;
+            text-align: center;
         }
 
         label {
@@ -39,12 +41,15 @@
 
         input[type="text"],
         input[type="password"] {
-            width: 100%;
+            width: 80%;
             padding: 10px;
             margin-top: 5px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 3px;
+            box-sizing: border-box;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         button {
@@ -61,6 +66,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <h1>Login to LP Brand Outlet</h1>
@@ -85,7 +91,7 @@
             const userInfo = document.getElementById("user-info");
 
             // Simulated authentication status
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"; // Replace with your JWT token
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikpv>"; // Replace with your JWT token
 
             if (loginButton && logoutButton) {
                 if (token) {
@@ -112,7 +118,7 @@
             const enteredPassword = document.getElementById('password').value;
 
             // Check if the email and password match the allowed values
-            if (enteredEmail === 'test@gmail.com' && enteredPassword === '123') {
+            if (enteredEmail === 'lp@gmail.com' && enteredPassword === '123') {
                 // If the login is successful, redirect to the authenticated products page
                 window.location.href = 'Products_Auth.html'; // Redirect to the authenticated products page
             } else {
@@ -122,4 +128,5 @@
         });
     </script>
 </body>
+
 </html>
